@@ -81,18 +81,21 @@
 
 
 
-<meta name="description" content="在JavaScript中有哪些数据类型?JavaScript中的数据类型有6种：基础数据类型5种：Boolean、String、Number、undefined、null、复杂数据类型1种：Object、如果在ES6中，新增了一种symbol类型，表示独一无二的值。并且symbol类型在初始化的时候不需要使用new操作符。">
+<meta name="description" content="这个问题表面看起来好像很容易，其实暗藏玄机。就像别人问你，你是如何证明你是你？（听着想打人了吧，哈哈哈） 下来就来验证一下如何判断数组是数组。  JavaScript有五种方法可以确定一个值到底是什么类型，分别是typeof运算符，constructor法，instanceof运算符，Object.prototype.toString方法以及Array.isArray法.">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js数据类型与检测">
-<meta property="og:url" content="http://yoursite.com/2018/12/10/blog5/index.html">
+<meta property="og:title" content="js如何判断数组是数组？">
+<meta property="og:url" content="http://yoursite.com/2018/12/13/blog6/index.html">
 <meta property="og:site_name" content="星之所在">
-<meta property="og:description" content="在JavaScript中有哪些数据类型?JavaScript中的数据类型有6种：基础数据类型5种：Boolean、String、Number、undefined、null、复杂数据类型1种：Object、如果在ES6中，新增了一种symbol类型，表示独一无二的值。并且symbol类型在初始化的时候不需要使用new操作符。">
+<meta property="og:description" content="这个问题表面看起来好像很容易，其实暗藏玄机。就像别人问你，你是如何证明你是你？（听着想打人了吧，哈哈哈） 下来就来验证一下如何判断数组是数组。  JavaScript有五种方法可以确定一个值到底是什么类型，分别是typeof运算符，constructor法，instanceof运算符，Object.prototype.toString方法以及Array.isArray法.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-10T08:30:08.304Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/13/img/js_shuzu.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/13/img/blog6_poto.png">
+<meta property="og:updated_time" content="2018-12-13T03:01:04.577Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js数据类型与检测">
-<meta name="twitter:description" content="在JavaScript中有哪些数据类型?JavaScript中的数据类型有6种：基础数据类型5种：Boolean、String、Number、undefined、null、复杂数据类型1种：Object、如果在ES6中，新增了一种symbol类型，表示独一无二的值。并且symbol类型在初始化的时候不需要使用new操作符。">
+<meta name="twitter:title" content="js如何判断数组是数组？">
+<meta name="twitter:description" content="这个问题表面看起来好像很容易，其实暗藏玄机。就像别人问你，你是如何证明你是你？（听着想打人了吧，哈哈哈） 下来就来验证一下如何判断数组是数组。  JavaScript有五种方法可以确定一个值到底是什么类型，分别是typeof运算符，constructor法，instanceof运算符，Object.prototype.toString方法以及Array.isArray法.">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/13/img/js_shuzu.png">
 
 
 
@@ -122,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/10/blog5/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/13/blog6/">
 
 
 
 
 
-  <title>js数据类型与检测 | 星之所在</title>
+  <title>js如何判断数组是数组？ | 星之所在</title>
   
 
 
@@ -350,7 +353,7 @@ $(function() {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/blog5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/blog6/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="planet">
@@ -367,7 +370,7 @@ $(function() {
 
         
         
-          <h1 class="post-title" itemprop="name headline">js数据类型与检测</h1>
+          <h1 class="post-title" itemprop="name headline">js如何判断数组是数组？</h1>
         
 
         <div class="post-meta">
@@ -379,8 +382,8 @@ $(function() {
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T15:40:22+08:00">
-                2018-12-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T10:07:22+08:00">
+                2018-12-13
               </time>
             
 
@@ -419,7 +422,7 @@ $(function() {
 
           
           
-             <span id="/2018/12/10/blog5/" class="leancloud_visitors" data-flag-title="js数据类型与检测">
+             <span id="/2018/12/13/blog6/" class="leancloud_visitors" data-flag-title="js如何判断数组是数组？">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -450,75 +453,59 @@ $(function() {
       
 
       
-        <h1 id="在JavaScript中有哪些数据类型"><a href="#在JavaScript中有哪些数据类型" class="headerlink" title="在JavaScript中有哪些数据类型?"></a>在JavaScript中有哪些数据类型?</h1><p>JavaScript中的数据类型有6种：<br>基础数据类型5种：<code>Boolean</code>、<code>String</code>、<code>Number</code>、<code>undefined</code>、<code>null</code>、<br>复杂数据类型1种：<code>Object</code>、<br>如果在ES6中，新增了一种symbol类型，表示独一无二的值。并且symbol类型在初始化的时候不需要使用new操作符。</p>
+        <p>这个问题表面看起来好像很容易，其实暗藏玄机。就像别人问你，你是如何证明你是你？（听着想打人了吧，哈哈哈）</p>
+<p>下来就来验证一下如何判断数组是数组。</p>
+<blockquote>
+<p>JavaScript有五种方法可以确定一个值到底是什么类型，分别是typeof运算符，constructor法，instanceof运算符，Object.prototype.toString方法以及Array.isArray法.</p>
+</blockquote>
 <a id="more"></a>
-<h2 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h2><ul>
-<li>除了以下值: undefined null false 0 NaN “” 或者’ ‘其他值都视为true。</li>
-<li>空数组和空对象都是true。</li>
-</ul>
-<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ul>
-<li>字符串默认只能写在一行内，分成多行将会报错，如果必须，要在每一行的结尾使用反斜杆，但反斜杆后不能有诸如空格的其他字符。</li>
-<li>连接运算符 + 可以连接多个单行字符串，将长字符串拆成多行书写。或者用es6的 <code>${}</code>字符串模板。</li>
-<li>length属性返回字符串长度。</li>
-<li>由于历史原因，JavaScript使用Unicode字符集。</li>
-</ul>
-<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><ul>
-<li>JavaScript内部，所有数字都是以64位浮点数形式存储，整数也是。</li>
-<li>JavaScript能够表示的数值范围是2^-1023到2^1024，超出的范围的数无法表示。</li>
-<li>溢出能够表示的范围会返回Infinity（正数）或者0（负数）</li>
-<li>数值可以有多种表示方法，字面形式和科学计数法。字面形式：35 0xFF(十六进制) 123e。</li>
-<li>除以下情况外都采用字面形式表示，小数点前数字多于21位或后的零多于5个。</li>
-<li>有四种进制来表示字面量：十进制 十六进制 八进制 二进制。</li>
-<li>属于number类型的特殊数值：-0 +0 NaN 正负Infinity。</li>
-<li>NaN参与的绝大部分运算都会得到诸如NaN false 这样的答案。</li>
-<li>数值相关的全局方法 parseInt() parseFloat() isNaN() isFinite()</li>
-</ul>
-<h2 id="null-amp-undefined"><a href="#null-amp-undefined" class="headerlink" title="null &amp; undefined"></a>null &amp; undefined</h2><ul>
-<li>都表示没有，在真值判断中都是false，null == undefined，null !== undefined</li>
-<li>二者的来由很有历史原因，最开始null用于标识对象为空，这也是现在tyepof null //object的原因，之后又添加了一个undefined类型。</li>
-<li>二者的区别，null是一个表示‘空’的对象，转为数值时为0，undefined 是一个表示此处无定义的原始值，转为数值时为NaN。</li>
-</ul>
-<h2 id="三大引用类型"><a href="#三大引用类型" class="headerlink" title="三大引用类型"></a>三大引用类型</h2><p>1.Object类型</p>
-<p>我们看到的大多数类型值都是Object类型的实例，创建Object实例的方式有两种。</p>
-<p>第一种是使用new操作符后跟Object构造函数，如下所示</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line">person.name = <span class="string">"Micheal"</span>;</span><br><span class="line"></span><br><span class="line">person.age = <span class="number">24</span>;</span><br></pre></td></tr></table></figure>
-<p>第二种方式是使用对象字面量表示法，如下所示</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line"></span><br><span class="line">　　name : <span class="string">"Micheal"</span>,</span><br><span class="line"></span><br><span class="line">　　age : <span class="number">24</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>2.Array类型</p>
-<p>数组的每一项可以用来保存任何类型的数据，也就是说，可以用数组的第一个位置来保存字符串，第二个位置保存数值，第三个位置保存对象….另外，数组的大小是可以动态调整的。</p>
-<p>创建数组的基本方式有两种</p>
-<p>第一种是使用Array构造函数，如下所示</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"yellow"</span>);</span><br></pre></td></tr></table></figure>
-<p>第二种是使用数组字面量表示法，如下所示</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"yellow"</span>];</span><br></pre></td></tr></table></figure>
-<p>3 Function类型</p>
-<p>每个函数都是Function类型的实例，而且都与其他引用类型一样具有属性和方法。函数通常是使用函数声明语法定义的，如下所示</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">num1,num2</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">　　<span class="keyword">return</span> num1 + num2;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这和使用函数表达式定义函数的方式相差无几。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">　　<span class="keyword">return</span> sum1 + sum2;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>js按照存储方式分为值类型和引用类型,下一篇文章会讲到<code>浅拷贝深拷贝</code>。</p>
-<h1 id="如何对数据类型进行判断？"><a href="#如何对数据类型进行判断？" class="headerlink" title="如何对数据类型进行判断？"></a>如何对数据类型进行判断？</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> (<span class="literal">true</span>);                <span class="comment">//"boolean"</span></span><br><span class="line"><span class="keyword">typeof</span> (<span class="string">"xwj"</span>);               <span class="comment">//"string"</span></span><br><span class="line"><span class="keyword">typeof</span> (<span class="number">10</span>);                  <span class="comment">//"number"</span></span><br><span class="line"><span class="keyword">typeof</span> (<span class="literal">undefined</span>);           <span class="comment">//"undefined"</span></span><br><span class="line"><span class="keyword">typeof</span> (<span class="literal">null</span>);                <span class="comment">//"object"</span></span><br><span class="line"><span class="keyword">typeof</span> (&#123;&#125;);                  <span class="comment">//"object"</span></span><br></pre></td></tr></table></figure>
-<p>对于普通的数据类型来说，只需要使用typeof来进行判断就可以来，数据类型有6种，typeofde返回的值也有6种(在es6中是7种，包括symbol类型的返回值)，但是在typeof的返回值里面，null和Object返回的都是Object，而其余的都是对应的字符串，包括function</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">typeof</span> a;                   <span class="comment">//"function"</span></span><br></pre></td></tr></table></figure>
-<h2 id="typeof后面经常会跟一个（），这对括号可否省略？"><a href="#typeof后面经常会跟一个（），这对括号可否省略？" class="headerlink" title="typeof后面经常会跟一个（），这对括号可否省略？"></a>typeof后面经常会跟一个（），这对括号可否省略？</h2><p>先想想typeof到底是什么？它的后面经常跟一对（），看起来确实有点像一个函数，但其实不然，typeof它是一个一元运算符，和+ - * / 是一样的，所以typeof后面是可以不跟（）的，加（）只是为了看起来方便，不过这也造成了一些误解，但它就是一个一元运算符。</p>
-<p>一元运算符有很高的优先级，即使我们做多个 &amp;&amp; || 的逻辑判断时，typeof依然可以连着写，而不需要使用（）把每一个typeof包裹起来</p>
-<h2 id="那么如何对Object类型进行判断？"><a href="#那么如何对Object类型进行判断？" class="headerlink" title="那么如何对Object类型进行判断？"></a>那么如何对Object类型进行判断？</h2><p>其实对Object判断主要是区分某个对象是否为数组，有以下方法：</p>
-<p>1.使用instanceof判断</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a <span class="keyword">instanceof</span> <span class="built_in">Array</span>);    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p>2.使用原型链上的constructor判断</p>
-<p>console.log(a.<strong>proto</strong>.constructor===Array);   //true</p>
-<p>这两种方法，看上去不错，但是实际上还是有些漏洞的，当我们的页面中存在多个frame，并且我们的判断是在两个iframe之间的时候，就很有可能出现问题了。由于每个iframe都属于自己的window对象，跨frame实例化的对象彼此是不共享原型链的，因此导致上述检测代码失效</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);          <span class="comment">//创建iframe</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(iframe);                      <span class="comment">//添加到body中</span></span><br><span class="line">xArray = <span class="built_in">window</span>.frames[<span class="built_in">window</span>.frames.length<span class="number">-1</span>].Array;   <span class="comment">//将xArray指向第二个iframe的引用</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> xArray(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);                            <span class="comment">// 声明数组[1,2,3]</span></span><br><span class="line">alert(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>);                            <span class="comment">// false</span></span><br><span class="line">alert(arr.constructor === <span class="built_in">Array</span>);                       <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>还有两种更值得推荐的方法：</p>
-<p>3.使用Array.isArray() 方法判断</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(a));   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p>ECMAScript 5加入了 Array.isArray() 方法，可以准确地检测一个值是否为数组。但是它有个缺点就是不支持IE8之前的版本，不过现在连淘宝都放弃了对IE8以下浏览器的支持，这个问题大概可以忽略</p>
-<p>4.使用Object.prototype.toString.call()方法判断</p>
-<p>这是一种无懈可击的判断数组的方法，所有typeof返回值为”object”的对象都有一个内置属性：<code>[[Class]]</code></p>
-<p>Object.prototype.toString()获取到这个内置属性，然后根据它返回类似于”[object Array]”的字符串作为结果，利用这个方法，再配合call改变toString的this引用为待检测的对象，我们可以取得任何对象的内部属性[[Class]]</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> b = [];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">c</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(a));     <span class="comment">//[Object Object]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(b));     <span class="comment">//[Object Array]</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(c));     <span class="comment">//</span></span><br></pre></td></tr></table></figure>
-<p>Object.prototype.toString方法在ECMAScript 3中规范中就存在，也不存在兼容性问题。</p>
-<p>本文总结：js数据类型虽然是基础，但面试题也经常出现，偶尔回来温习一下巩固下基础对自己的发展也是有好处的。</p>
+<h1 id="运用typeof运算符来判断"><a href="#运用typeof运算符来判断" class="headerlink" title="运用typeof运算符来判断"></a>运用typeof运算符来判断</h1><p>先来看看一张包含typeof运算法的针对不同参数的输出结果的表格：</p>
+<p><img src="../img/js_shuzu.png" alt=""></p>
+<p>再来看看用typeof是否能判断出数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">const</span> b = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> c= [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(a)); <span class="comment">//Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(b)); <span class="comment">//Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(c)); <span class="comment">//Object</span></span><br></pre></td></tr></table></figure>
+<p>发现了吧，数组被归到了Any other object当中,并没有办法区分数组，对象，null等原型链上都有Object的数据类型。因此，在JavaScript项目中用typeof来判断一个位置类型的数据是否为数组，是非常不靠谱的。</p>
+<h1 id="用instanceof判断"><a href="#用instanceof判断" class="headerlink" title="用instanceof判断"></a>用instanceof判断</h1><p>instanceof运算符可以用来判断某个构造函数的prototype属性所指向的對象是否存在于另外一个要检测对象的原型链上。在使用的时候语法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">object <span class="keyword">instanceof</span> <span class="keyword">constructor</span></span><br></pre></td></tr></table></figure>
+<p>instanceof 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false。 在这里需要特别注意的是：instanceof 检测的是原型。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [];</span><br><span class="line"><span class="keyword">const</span> b = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(a <span class="keyword">instanceof</span> <span class="built_in">Array</span>);<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(a <span class="keyword">instanceof</span> <span class="built_in">Object</span>);<span class="comment">//true,在数组的原型链上也能找到Object构造函数</span></span><br><span class="line"><span class="built_in">console</span>.log(b <span class="keyword">instanceof</span> <span class="built_in">Array</span>);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>由上面的几行代码可以看出，使用instanceof运算符可以分辨数组和对象，可以判断数组是数组。</p>
+<p>但是这不是精确的</p>
+<p>我们用一段伪代码来模拟其内部执行过程：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">instanceof</span> (A,B) = &#123;</span><br><span class="line">    <span class="keyword">var</span> L = A.__proto__;</span><br><span class="line">    <span class="keyword">var</span> R = B.prototype;</span><br><span class="line">    <span class="keyword">if</span>(L === R) &#123;</span><br><span class="line">        <span class="comment">//A的内部属性__proto__指向B的原型对象</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上述过程可以看出，当 A 的 <strong>proto</strong> 指向 B 的 prototype 时，就认为 A 就是 B 的实例，我们再来看几个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">//true</span></span><br><span class="line">&#123;&#125; <span class="keyword">instanceof</span> <span class="built_in">Object</span>;<span class="comment">//true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>() <span class="keyword">instanceof</span> <span class="built_in">Date</span>;<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">new</span> Person() <span class="keyword">instanceof</span> Person;</span><br><span class="line"></span><br><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">//true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>() <span class="keyword">instanceof</span> <span class="built_in">Object</span>;<span class="comment">//true</span></span><br><span class="line"><span class="keyword">new</span> Person <span class="keyword">instanceof</span> <span class="built_in">Object</span>;<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>我们发现，虽然 instanceof 能够判断出 [ ] 是Array的实例，但它认为 [ ] 也是Object的实例，为什么呢？</p>
+<p>我们来分析一下 [ ]、Array、Object 三者之间的关系：</p>
+<p>从 instanceof 能够判断出 [ ].proto 指向 Array.prototype，而 Array.prototype.proto 又指向了Object.prototype，最终 Object.prototype.proto 指向了null，标志着原型链的结束。因此，[]、Array、Object 就在内部形成了一条原型链：</p>
+<p><img src="../img/blog6_poto.png" alt=""></p>
+<p>从原型链可以看出，[] 的 proto 直接指向Array.prototype，间接指向 Object.prototype，所以按照 instanceof 的判断规则，[] 就是Object的实例。依次类推，类似的 new Date()、new Person() 也会形成一条对应的原型链 。因此，instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。</p>
+<p>instanceof 操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的构造函数。如果你从一个框架向另一个框架传入一个数组，那么传入的数组与在第二个框架中原生创建的数组分别具有各自不同的构造函数。</p>
+<p>为了解决这个问题， ECMAScript 5 新增了 Array.isArray() 方法。这个方法的目的是最终确定某个值到底是不是数组，而不管它是在哪个全局执行环境中创建的。</p>
+<h1 id="用Array对象的isArray方法判断"><a href="#用Array对象的isArray方法判断" class="headerlink" title="用Array对象的isArray方法判断"></a>用Array对象的isArray方法判断</h1><p>当参数为数组的时候，isArray方法返回true，当参数不为数组的时候，isArray方法返回false。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [];</span><br><span class="line"><span class="keyword">const</span> b = &#123;&#125;;</span><br><span class="line"><span class="built_in">Array</span>.isArray(a);<span class="comment">//true</span></span><br><span class="line"><span class="built_in">Array</span>.isArray(b);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>它与instance运算符判断的方法以及Object.prototype.toString法并不相同，一些列的修改并不会影响到判断的结果。</p>
+<p>Array.isArray是ES5标准中增加的方法，部分比较老的浏览器可能会有兼容问题。</p>
+<h1 id="用constructor判断"><a href="#用constructor判断" class="headerlink" title="用constructor判断"></a>用constructor判断</h1><p>实例化的数组拥有一个constructor属性，这个属性指向生成这个数组的方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [];</span><br><span class="line"><span class="built_in">console</span>.log(a.constructor);<span class="comment">//function Array()&#123; [native code] &#125;</span></span><br></pre></td></tr></table></figure>
+<p>以上的代码说明，数组是有一个叫Array的函数实例化的。<br>如果被判断的对象是其他的数据类型的话，结果如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(o.constructor);<span class="comment">//function Object()&#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">const</span> r = <span class="regexp">/^[0-9]$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(r.constructor);<span class="comment">//function RegExp() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">const</span> n = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(n.constructor);<span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
+<p>看到这里，你可能会觉得这也是一种靠谱的判断数组的方法，我们可以用以下的方式来判断:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [];</span><br><span class="line"><span class="built_in">console</span>.log(a.constructor == <span class="built_in">Array</span>);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>但是，很遗憾的通知你，constructor属性是可以改写的，如果你一不小心作死改了constructor属性的话，那么使用这种方法就无法判断出数组的真是身份了，写到这里，我不禁想起了无间道的那段经典对白，梁朝伟：“对不起，我是警察。”刘德华：“谁知道呢？”。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组</span></span><br><span class="line"><span class="keyword">const</span> a = [];</span><br><span class="line"><span class="comment">//作死将constructor属性改成了别的</span></span><br><span class="line">a.contrtuctor = <span class="built_in">Object</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.constructor == <span class="built_in">Array</span>);<span class="comment">//false (哭脸)</span></span><br><span class="line"><span class="built_in">console</span>.log(a.constructor == <span class="built_in">Object</span>);<span class="comment">//true (哭脸)</span></span><br><span class="line"><span class="built_in">console</span>.log(a <span class="keyword">instanceof</span> <span class="built_in">Array</span>);<span class="comment">//true (instanceof火眼金睛)</span></span><br></pre></td></tr></table></figure>
+<p>可以看出，constructor属性被修改之后，就无法用这个方法判断数组是数组了，除非你能保证不会发生constructor属性被改写的情况，否则用这种方法来判断数组也是不靠谱的。</p>
+<h1 id="用Object的toString方法判断"><a href="#用Object的toString方法判断" class="headerlink" title="用Object的toString方法判断"></a>用Object的toString方法判断</h1><blockquote>
+<p>根据对象的class属性(类属性)，跨原型链调用toString()方法。</p>
+</blockquote>
+<p>在js中一个对象一旦被创建，在内部会携带创建对象的类型名，一旦创建就不能被修改了,每一个继承自Object的对象都拥有toString的方法。</p>
+<p>如果一个对象的toString方法没有被重写过的话，那么toString方法将会返回”[object type]”，其中的type代表的是对象的类型，根据type的值，我们就可以判断这个疑似数组的对象到底是不是数组了。</p>
+<p>你可能会纠结，为什么不是直接调用数组，或则字符串自己的的toString方法呢？我们试一试就知道了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="string">'Hello'</span>,<span class="string">'Howard'</span>];</span><br><span class="line"><span class="keyword">const</span> b = &#123;<span class="number">0</span>:<span class="string">'Hello'</span>,<span class="number">1</span>:<span class="string">'Howard'</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> c = <span class="string">'Hello Howard'</span>;</span><br><span class="line">a.toString();<span class="comment">//"Hello,Howard"</span></span><br><span class="line">b.toString();<span class="comment">//"[object Object]"</span></span><br><span class="line">c.toString();<span class="comment">//"Hello,Howard"</span></span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，除了对象之外，其他的数据类型的toString返回的都是内容的字符串，只有对象的toString方法会返回对象的类型。所以要判断除了对象之外的数据的数据类型，我们需要“借用”对象的toString方法，所以我们需要使用call或者apply方法来改变toString方法的执行上下文。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="string">'Hello'</span>,<span class="string">'Howard'</span>];</span><br><span class="line"><span class="keyword">const</span> b = &#123;<span class="number">0</span>:<span class="string">'Hello'</span>,<span class="number">1</span>:<span class="string">'Howard'</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> c = <span class="string">'Hello Howard'</span>;</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(a);<span class="comment">//"[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(b);<span class="comment">//"[object Object]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(c);<span class="comment">//"[object String]"</span></span><br></pre></td></tr></table></figure>
+<p>使用apply方法也能达到同样的效果</p>
+<p>总的来看，用es5的isArray以及toString方法是最为靠谱的，其他就不建议拿来用了。</p>
+<p>你是不是你，看完有结果了吗？</p>
 
       
     </div>
@@ -549,8 +536,8 @@ $(function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/blog4/" rel="next" title="前端性能优化总结">
-                <i class="fa fa-chevron-left"></i> 前端性能优化总结
+              <a href="/2018/12/10/blog5/" rel="next" title="js数据类型与检测">
+                <i class="fa fa-chevron-left"></i> js数据类型与检测
               </a>
             
           </div>
@@ -558,10 +545,6 @@ $(function() {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/13/blog6/" rel="prev" title="js如何判断数组是数组？">
-                js如何判断数组是数组？ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -718,7 +701,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在JavaScript中有哪些数据类型"><span class="nav-number">1.</span> <span class="nav-text">在JavaScript中有哪些数据类型?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boolean"><span class="nav-number">1.1.</span> <span class="nav-text">Boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">1.2.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number"><span class="nav-number">1.3.</span> <span class="nav-text">Number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null-amp-undefined"><span class="nav-number">1.4.</span> <span class="nav-text">null &amp; undefined</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三大引用类型"><span class="nav-number">1.5.</span> <span class="nav-text">三大引用类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何对数据类型进行判断？"><span class="nav-number">2.</span> <span class="nav-text">如何对数据类型进行判断？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof后面经常会跟一个（），这对括号可否省略？"><span class="nav-number">2.1.</span> <span class="nav-text">typeof后面经常会跟一个（），这对括号可否省略？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那么如何对Object类型进行判断？"><span class="nav-number">2.2.</span> <span class="nav-text">那么如何对Object类型进行判断？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#运用typeof运算符来判断"><span class="nav-number">1.</span> <span class="nav-text">运用typeof运算符来判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用instanceof判断"><span class="nav-number">2.</span> <span class="nav-text">用instanceof判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用Array对象的isArray方法判断"><span class="nav-number">3.</span> <span class="nav-text">用Array对象的isArray方法判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用constructor判断"><span class="nav-number">4.</span> <span class="nav-text">用constructor判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用Object的toString方法判断"><span class="nav-number">5.</span> <span class="nav-text">用Object的toString方法判断</span></a></li></ol></div>
             
 
           </div>
