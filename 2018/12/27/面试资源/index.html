@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-nextNew.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-nextNew.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试题,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="星之所在" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="面试题相关 前端面试考点多？看这几篇文章就够了  2018春招前端面试: 闯关记  记录面试中一些回答不够好的题  前端知识集锦  收集的前端面试题和答案  前端开发面试题  前端面试题总结——综合问题">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试资源">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/面试资源/index.html">
+<meta property="og:site_name" content="星之所在">
+<meta property="og:description" content="面试题相关 前端面试考点多？看这几篇文章就够了  2018春招前端面试: 闯关记  记录面试中一些回答不够好的题  前端知识集锦  收集的前端面试题和答案  前端开发面试题  前端面试题总结——综合问题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/面试资源/assets/Interview.png">
+<meta property="og:updated_time" content="2018-12-27T07:21:46.223Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试资源">
+<meta name="twitter:description" content="面试题相关 前端面试考点多？看这几篇文章就够了  2018春招前端面试: 闯关记  记录面试中一些回答不够好的题  前端知识集锦  收集的前端面试题和答案  前端开发面试题  前端面试题总结——综合问题">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/27/面试资源/assets/Interview.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/27/面试资源/">
+
+
+
+
+
+  <title>面试资源 | 星之所在</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("UYq8XoNFvUjuN5CRg2EFyjv7-gzGzoHsz", "RSHfgqooxObJOGOwNPuchIE6");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+
+  
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/song872229436" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">星之所在</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/面试资源/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="planet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="星之所在">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试资源</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T15:20:17+08:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/27/面试资源/" class="leancloud_visitors" data-flag-title="面试资源">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="面试题相关"><a href="#面试题相关" class="headerlink" title="面试题相关"></a>面试题相关</h2><ul>
+<li><p><a href="https://juejin.im/post/5aae076d6fb9a028cc6100a9" target="_blank" rel="noopener">前端面试考点多？看这几篇文章就够了</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5a998991f265da237f1dbdf9" target="_blank" rel="noopener">2018春招前端面试: 闯关记</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5a9b8417518825558251ce15" target="_blank" rel="noopener">记录面试中一些回答不够好的题</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5a961d496fb9a06356314a36" target="_blank" rel="noopener">前端知识集锦</a></p>
+</li>
+<li><p><a href="https://github.com/qiu-deqing/FE-interview" target="_blank" rel="noopener">收集的前端面试题和答案</a></p>
+</li>
+<li><p><a href="https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers" target="_blank" rel="noopener">前端开发面试题</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzUzOTM0MTE4OQ==&amp;mid=2247484010&amp;idx=1&amp;sn=552101d7c9476085e67aa88a5fea6850&amp;chksm=fac8ba80cdbf33963a2cd40c5c597098d39a5566c23865550780a0df0b8c57eb6bf88c5b0fc3&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">前端面试题总结——综合问题</a></p>
+<a id="more"></a></li>
+<li><p><a href="https://github.com/InterviewMap/CS-Interview-Knowledge-Map" target="_blank" rel="noopener">面试图谱</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b4d543ce51d4519610dea67" target="_blank" rel="noopener">记一次凉凉的小米面试</a></p>
+</li>
+<li><p><a href="https://github.com/h5bp/Front-end-Developer-Interview-Questions/tree/master/Translations/Chinese" target="_blank" rel="noopener">前端工作面试问题</a></p>
+</li>
+<li><p><a href="https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/README.md" target="_blank" rel="noopener">前端面试手册</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/28428367" target="_blank" rel="noopener">前端基础面试题(JS部分)</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000015916686" target="_blank" rel="noopener">新鲜出炉的8月前端面试题-2018</a></p>
+</li>
+<li><p><a href="https://github.com/ElemeFE/node-interview" target="_blank" rel="noopener">Node.js 面试</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b68f384f265da0fa00a3df0" target="_blank" rel="noopener">一点感悟：当走完所有大厂的实习面试后</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000015591521" target="_blank" rel="noopener">总结了17年初到18年初百场前端面试的面试经验(含答案)</a></p>
+</li>
+<li><p><a href="https://github.com/forrany/Web-Project" target="_blank" rel="noopener">前端面试&amp;笔试&amp;错题指南</a></p>
+</li>
+<li><p><a href="https://github.com/CyC2018/Interview-Notebook" target="_blank" rel="noopener">技术面试需要掌握的基础知识整理(偏后端，可以了解下)</a></p>
+</li>
+<li><p><a href="https://github.com/poetries/FE-Interview-Questions" target="_blank" rel="noopener">前端面试常考问题整理</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b9770056fb9a05d2f3692ce" target="_blank" rel="noopener">记一次前端大厂面试</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bb470295188255c5e66f88f" target="_blank" rel="noopener">百度阿里网易大疆等大小厂前端校招面经</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b5193e6e51d4519133fa700" target="_blank" rel="noopener">19秋招面经</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b7432076fb9a009820daa37" target="_blank" rel="noopener">19秋招面经续</a></p>
+</li>
+<li><p><a href="https://blog.ihoey.com/posts/Interview/2018-02-28-alibaba-interview.html" target="_blank" rel="noopener">2018阿里巴巴前端面试总结</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5ab70735f265da237a4cf9b1" target="_blank" rel="noopener">大厂前端面试考什么? </a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/T9vM95jj1GX3kaCOMCUGIw" target="_blank" rel="noopener">2018大厂高级前端面试题汇总</a></p>
+</li>
+<li><p><a href="https://www.geekjc.com/ebook/detail/5ba5bcae7143880b09cb4d54/1537588096871" target="_blank" rel="noopener">前端常见面试题汇总</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/7ZahpAT95MnWw-BC0FHyAQ" target="_blank" rel="noopener">整理了近期阿里携程的面试题</a></p>
+</li>
+<li><p><a href="https://dwz.cn/TlJnk9AX" target="_blank" rel="noopener">三年前端，面试思考（头条蚂蚁美团offer）</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5befeb5051882511a8527dbe" target="_blank" rel="noopener">一年半经验，百度、有赞、阿里面试总结</a></p>
+</li>
+</ul>
+<h2 id="简历相关"><a href="#简历相关" class="headerlink" title="简历相关"></a>简历相关</h2><ul>
+<li><p><a href="https://github.com/Wscats/CV" target="_blank" rel="noopener">切图仔面试宝典</a></p>
+</li>
+<li><p><a href="https://github.com/geekcompany/ResumeSample" target="_blank" rel="noopener">程序员简历模板</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000016085001" target="_blank" rel="noopener">什么样的简历不会被丢进回收站</a></p>
+</li>
+</ul>
+<h2 id="面试经验杂谈"><a href="#面试经验杂谈" class="headerlink" title="面试经验杂谈"></a>面试经验杂谈</h2><ul>
+<li><p><a href="https://github.com/Aaaaaaaty/blog/issues/39" target="_blank" rel="noopener">记一次“失利后”经过半年准备通过阿里社招的经历与感悟</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000006950447" target="_blank" rel="noopener">SegmentFault 技术周刊 Vol.6 - 面试那些事儿</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000015720085" target="_blank" rel="noopener">关于面试的思考</a></p>
+</li>
+<li><p><a href="https://github.com/jawil/blog/issues/22" target="_blank" rel="noopener">面试分享：一年经验初探阿里巴巴前端社招</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5a64541bf265da3e2d338862" target="_blank" rel="noopener">16年毕业的前端er在杭州求职ing</a></p>
+</li>
+<li><p><a href="https://github.com/fex-team/interview-questions" target="_blank" rel="noopener">FEX 面试问题(面试官的角度)</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b9bb659e51d450e6e0398a8" target="_blank" rel="noopener">社会汪聊聊那些年的面试与笔试</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b984950f265da0afc2be3bf" target="_blank" rel="noopener">七年切图仔如何面试大厂web前端？</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bbc54a2e51d450e5a7445b4" target="_blank" rel="noopener">如何轻松拿到淘宝前端 offer</a></p>
+</li>
+<li><p><a href="http://ijser.cn/2017-07-16-resume-selecting-experance/" target="_blank" rel="noopener">简历筛选经验总结</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/OiroQJ-73KjP-t6PYaVWCQ" target="_blank" rel="noopener">如何在面试中介绍自己的项目经验</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bca74cfe51d450e9163351b" target="_blank" rel="noopener">以面试官的角度来看 React 工作面试</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/I1snrlV3ZWvFxSGsY6N19g" target="_blank" rel="noopener">2018年底的前端跳槽潮中面试官希望看到什么亮点？</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bf5610be51d452a1353b08d" target="_blank" rel="noopener">2019年前端面试都聊啥？一起来看看</a></p>
+</li>
+</ul>
+<p><img src="./assets/Interview.png" alt="面试经验谈"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"><i class="fa fa-tag"></i> 面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/27/知识锦集/" rel="next" title="知识锦集">
+                <i class="fa fa-chevron-left"></i> 知识锦集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user2.jpg" alt="planet">
+            
+              <p class="site-author-name" itemprop="name">planet</p>
+              <p class="site-description motion-element" itemprop="description">是金子总会发光，更何况我是钻石。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/song872229436" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题相关"><span class="nav-number">1.</span> <span class="nav-text">面试题相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简历相关"><span class="nav-number">2.</span> <span class="nav-text">简历相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试经验杂谈"><span class="nav-number">3.</span> <span class="nav-text">面试经验杂谈</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">planet</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UYq8XoNFvUjuN5CRg2EFyjv7-gzGzoHsz", "RSHfgqooxObJOGOwNPuchIE6");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

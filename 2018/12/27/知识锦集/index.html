@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-nextNew.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-nextNew.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="总结归纳,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="星之所在" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="技术文章更早之前 利用 javascript 实现富文本编辑器  JS正则表达式完整教程  从0.1+0.2=0.30000000000000004再看JS中的Number类型  前端跨域的整理">
+<meta name="keywords" content="总结归纳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识锦集">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/知识锦集/index.html">
+<meta property="og:site_name" content="星之所在">
+<meta property="og:description" content="技术文章更早之前 利用 javascript 实现富文本编辑器  JS正则表达式完整教程  从0.1+0.2=0.30000000000000004再看JS中的Number类型  前端跨域的整理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-27T07:22:32.719Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="知识锦集">
+<meta name="twitter:description" content="技术文章更早之前 利用 javascript 实现富文本编辑器  JS正则表达式完整教程  从0.1+0.2=0.30000000000000004再看JS中的Number类型  前端跨域的整理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/27/知识锦集/">
+
+
+
+
+
+  <title>知识锦集 | 星之所在</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("UYq8XoNFvUjuN5CRg2EFyjv7-gzGzoHsz", "RSHfgqooxObJOGOwNPuchIE6");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+
+  
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/song872229436" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">星之所在</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/知识锦集/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="planet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="星之所在">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">知识锦集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T15:20:17+08:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结归纳/" itemprop="url" rel="index">
+                    <span itemprop="name">总结归纳</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/27/知识锦集/" class="leancloud_visitors" data-flag-title="知识锦集">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="技术文章"><a href="#技术文章" class="headerlink" title="技术文章"></a>技术文章</h2><h4 id="更早之前"><a href="#更早之前" class="headerlink" title="更早之前"></a>更早之前</h4><ul>
+<li><p><a href="http://eux.baidu.com/blog/fe/%E5%88%A9%E7%94%A8-javascript-%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8" target="_blank" rel="noopener">利用 javascript 实现富文本编辑器</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5965943ff265da6c30653879" target="_blank" rel="noopener">JS正则表达式完整教程</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5a6fce10f265da3e261c3c71" target="_blank" rel="noopener">从0.1+0.2=0.30000000000000004再看JS中的Number类型</a></p>
+</li>
+<li><p><a href="https://qiutc.me/post/cross-domain-collections.html" target="_blank" rel="noopener">前端跨域的整理</a></p>
+<a id="more"></a></li>
+<li><p><a href="https://juejin.im/post/59dc2b7a6fb9a0451869ae3a" target="_blank" rel="noopener">前端安全知识</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/34453198?group_id=957277540147056640" target="_blank" rel="noopener">从输入URL到页面加载的过程</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/616999666920" target="_blank" rel="noopener">虚拟DOM介绍</a></p>
+</li>
+<li><p><a href="http://imweb.io/topic/5aa54d6c16bc830d673d42ee" target="_blank" rel="noopener">React常见问题</a></p>
+</li>
+<li><p><a href="https://github.com/fouber/blog/issues/6" target="_blank" rel="noopener">大公司里怎样开发和部署前端代码</a></p>
+</li>
+<li><p><a href="https://huangxuan.me/2017/07/12/upgrading-eleme-to-pwa/" target="_blank" rel="noopener">饿了么的 PWA 升级实践</a></p>
+</li>
+<li><p><a href="https://xiaoiver.github.io/coding/2017/07/30/%E4%B8%BAvue%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0%E9%AA%A8%E6%9E%B6%E5%B1%8F.html" target="_blank" rel="noopener">为vue项目添加骨架屏</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/chengduxiaoc/p/7718768.html" target="_blank" rel="noopener">打通前后端全栈开发node+vue进阶</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/guoxianglei/p/7084506.html" target="_blank" rel="noopener">vue+axios 前端实现登录拦截</a></p>
+</li>
+</ul>
+<h4 id="201808"><a href="#201808" class="headerlink" title="201808"></a>201808</h4><ul>
+<li><p><a href="https://juejin.im/post/5b729909e51d45662434aef0" target="_blank" rel="noopener">开源库架构实战——从0到1搭建属于你自己的开源库</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b70514251882560f75dcc16" target="_blank" rel="noopener">微前端的设计理念与实践初探</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b29c3bde51d45588d4d7110" target="_blank" rel="noopener">浅谈使用 Vue 构建前端 10w+ 代码量的单页面应用开发底层</a></p>
+</li>
+<li><p><a href="https://github.com/jaywcjlove/onlinenetwork" target="_blank" rel="noopener">js判断是否断网了</a></p>
+</li>
+<li><p><a href="https://github.com/hbxeagle/rem" target="_blank" rel="noopener">了解真实的『REM』手机屏幕适配</a></p>
+</li>
+<li><p><a href="https://github.com/kejiacheng/kscreenshot" target="_blank" rel="noopener">web截图工具</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b6d0c5cf265da0f504a837f" target="_blank" rel="noopener">从青铜到王者10个css3伪类使用技巧和运用，了解一哈</a></p>
+</li>
+</ul>
+<h4 id="201809"><a href="#201809" class="headerlink" title="201809"></a>201809</h4><ul>
+<li><p><a href="https://mp.weixin.qq.com/s/xMCIXn3ZnrQdhrXU4T7zSg" target="_blank" rel="noopener">电商设计手册之用户体系</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000016231512" target="_blank" rel="noopener">AST抽象语法树——最基础的javascript重点知识，99%的人根本不了解</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/43597829" target="_blank" rel="noopener">程序员职业生涯的6个阶段</a></p>
+</li>
+<li><p><a href="https://github.com/berwin/Blog/issues/25" target="_blank" rel="noopener">2018你应该知道的Web性能信息采集指南</a></p>
+</li>
+<li><p><a href="https://www.zcfy.cc/article/introduction-front-end-developer-handbook-2018" target="_blank" rel="noopener">2018年前端开发工作手册</a></p>
+</li>
+<li><p><a href="https://github.com/shiyuejs/knowledge" target="_blank" rel="noopener">前端知识要点记录</a></p>
+</li>
+<li><p><a href="https://mathiasbynens.be/notes/prototypes" target="_blank" rel="noopener">JavaScript引擎基础：优化原型</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5ba09fbc5188255c880ab4b0" target="_blank" rel="noopener">WePY - 小程序敏捷开发实践</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5ba1ba036fb9a05d3155056c" target="_blank" rel="noopener">美团外卖小程序的探索和实践</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5ba2fa43e51d450e5d0b0676" target="_blank" rel="noopener">云开发初探 —— 更简便的小程序开发模式</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5a2e5f0851882575d42f5609" target="_blank" rel="noopener">import、require、export、module.exports 混合使用详解</a></p>
+</li>
+<li><p><a href="http://top.css88.com/archives/854" target="_blank" rel="noopener">Houdini：CSS 领域最令人振奋的革新</a></p>
+</li>
+<li><p><a href="https://tao-wai.gitbooks.io/wai/content/" target="_blank" rel="noopener">网络无障碍建设指南</a></p>
+</li>
+<li><p><a href="https://juejin.im/e/gdd" target="_blank" rel="noopener">2018 Google 开发者大会记录</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/L5i_wzE8HgpiyrbAlFCC_g" target="_blank" rel="noopener">漫画告诉你什么是DDoS攻击？</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/DEHla21cI04fRX1tnnB13Q" target="_blank" rel="noopener">超全的 Vue 开源项目合集，签收一下</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/529406a23447" target="_blank" rel="noopener">谈谈我是如何获得知乎的前端源码的</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bacbd395188255c8d0fd4b2" target="_blank" rel="noopener">Nginx与前端开发</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5badfc53f265da0af77527b8" target="_blank" rel="noopener">未来的组件化标准 —— 浅尝Web Components</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b7cb5716fb9a01a143fd0f7" target="_blank" rel="noopener">关于VUE项目地图开发中大量点标记绘制一些总结</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bac7405f265da0af93b097e" target="_blank" rel="noopener">[译]JavaScript响应式的最佳解释</a></p>
+</li>
+</ul>
+<h4 id="201810"><a href="#201810" class="headerlink" title="201810"></a>201810</h4><ul>
+<li><p><a href="https://juejin.im/post/5bbafd78f265da0ad947e6ba" target="_blank" rel="noopener">如何写一个现代的JavaScript库</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bbc1b0c6fb9a05cf230140c" target="_blank" rel="noopener">优秀前端必知的话题：我们应该做些力所能及的优化</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bb9aed1e51d451a3f4c3923" target="_blank" rel="noopener">我如何零基础转行成为一个自信的前端</a></p>
+</li>
+<li><p><a href="http://www.html5dw.com/post/4929" target="_blank" rel="noopener">利用视口单位实现适配布局</a></p>
+</li>
+<li><p><a href="https://github.com/Jocs/jocs.github.io/issues/22" target="_blank" rel="noopener">一种自动化生成骨架屏的方案</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bd07157f265da0ad221cd19" target="_blank" rel="noopener">使用CSS自定义属性构建骨架屏</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b73c71fe51d45666016655a" target="_blank" rel="noopener">前端关于单点登录的知识</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/46284079" target="_blank" rel="noopener">精致化的微前端开发之旅</a></p>
+</li>
+<li><p><a href="https://www.w3cplus.com/mobile/vw-layout-in-vue.html" target="_blank" rel="noopener">如何在Vue项目中使用vw实现移动端适配</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/_8vpfui02sW7DFG-1TXnsw" target="_blank" rel="noopener">利用CSS改变图片颜色的100种方法！</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bc755b15188255c89015f39" target="_blank" rel="noopener">JavaScript原型与原型链</a></p>
+</li>
+<li><p><a href="https://houxingyi.github.io/2017/10/10/2017-10-10-routes-in-100-line/" target="_blank" rel="noopener">一个100行内的现代js路由</a></p>
+</li>
+<li><p><a href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/" target="_blank" rel="noopener">浏览器的工作原理：新式网络浏览器幕后揭秘</a></p>
+</li>
+<li><p><a href="https://www.yuque.com/yuque/blog/1024" target="_blank" rel="noopener">阿里巴巴集团开源软件巡礼</a></p>
+</li>
+<li><p><a href="http://jartto.wang/2018/10/13/nodejs-pdf/" target="_blank" rel="noopener">抓取网页生成 PDF</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bd2f19051882526d14975d2" target="_blank" rel="noopener">厌倦了写活动页？快来撸一个页面生成器吧！</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/k6OhMNrpagtTmbhkW-tmZg" target="_blank" rel="noopener">重磅！尤雨溪发布Vue 3.0开发路线</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bb719b9f265da0ab915dbdd" target="_blank" rel="noopener">[译] 尤雨溪：Vue 3.0 计划</a></p>
+</li>
+</ul>
+<h4 id="201811"><a href="#201811" class="headerlink" title="201811"></a>201811</h4><ul>
+<li><p><a href="https://segmentfault.com/a/1190000016852780" target="_blank" rel="noopener">前端如何高效的与后端协作开发</a></p>
+</li>
+<li><p><a href="https://cdc.tencent.com/2018/09/13/frontend-exception-monitor-research/" target="_blank" rel="noopener">前端异常监控解决方案研究</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bd96c5a5188257f96542cbf" target="_blank" rel="noopener">[译]浏览器工作原理探究</a></p>
+</li>
+<li><p><a href="http://www.css88.com/archives/9922" target="_blank" rel="noopener">JavaScript 完全手册（2018版）</a></p>
+</li>
+<li><p><a href="https://hpoenixf.com/posts/25280/" target="_blank" rel="noopener">前端进阶系列-目录</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bdfef86e51d453bf8051bf8" target="_blank" rel="noopener">JavaScript 复杂判断的更优雅写法</a></p>
+</li>
+<li><p><a href="https://www.css88.com/archives/10004" target="_blank" rel="noopener">JavaScript 开发者 10 种必备 VS Code 扩展</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bbcd7ff5188255c80668028" target="_blank" rel="noopener">几种常见的CSS布局</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/hOKfbgd-nRn2lboXMCiY8w" target="_blank" rel="noopener">前后端均适用的网络知识点大全</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bdfb387e51d452c8e0aa902" target="_blank" rel="noopener">年终回顾，为你汇总一份「前端技术清单」</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5be2dd8fe51d451bb447e0a5" target="_blank" rel="noopener">CSS 来实现多行文字截断</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5be797456fb9a04a0378bb91" target="_blank" rel="noopener">实现一个可无限折叠的table</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/B5Nl7vee9yWdcd_oxn0bXQ" target="_blank" rel="noopener">抛开 Vue、React、JQuery 这类第三方js，我们该怎么写代码？</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bec223f5188250c102116b5" target="_blank" rel="noopener">用100行代码提升10倍的性能</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/d_ORZMYZEglaYpukeSucDg" target="_blank" rel="noopener">2018年JavaScript生态圈调查报告出炉！</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bf3c7a551882511a85283f2" target="_blank" rel="noopener">JavaScript 如日中天，2018趋势报告来啦！</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/ViVe7HFeVrGeG2xTf-ZMpA" target="_blank" rel="noopener">【职经】从VUE CONF大会我所想到的</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/W36opjFlnXMD0JJUSQbSlg" target="_blank" rel="noopener">Vue.js作者尤雨溪为你分享：Vue 3.0 进展</a></p>
+</li>
+<li><p><a href="https://vue.w3ctech.com" target="_blank" rel="noopener">第二届Vue.js开发者大会</a></p>
+</li>
+</ul>
+<h4 id="201812"><a href="#201812" class="headerlink" title="201812"></a>201812</h4><ul>
+<li><p><a href="https://mp.weixin.qq.com/s/dpLx82wDzpp8mkXOeZPSyg" target="_blank" rel="noopener">2019年如何打造自己的“前端品牌”</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bf769e0518825773a2ebfe5" target="_blank" rel="noopener">一道面试题引起的思考</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bead1b25188251e1a1f4d34" target="_blank" rel="noopener">【手把手带你撸一个脚手架】系列</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5c0e34dce51d453595324d1e" target="_blank" rel="noopener">一文读懂H5移动开发调试技巧</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5c106485e51d450e657571a6" target="_blank" rel="noopener">加快Vue项目的开发速度</a></p>
+</li>
+</ul>
+<h2 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h2><ul>
+<li><p><a href="https://shenbao.github.io/2017/04/22/justjavac-live/" target="_blank" rel="noopener">前端工程师的入门与进阶</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/N3HV7eEeyyPZYZuTA_DbaQ" target="_blank" rel="noopener">程序员最佳学习方法</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/7utZtdK9yc-Krwcofe0csw" target="_blank" rel="noopener">人工智能写前端</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/kidney/p/6624521.html" target="_blank" rel="noopener">转行一周年</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/kidney/p/8722226.html" target="_blank" rel="noopener">入行两周年</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/dnNxaJTsBZtHkgIlM4RsVA" target="_blank" rel="noopener">JS之父和JSON之父：JavaScript的下一站</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5adf3778518825672033b6cc" target="_blank" rel="noopener">我们和优秀工程师的差距在哪儿</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/Smiled/p/8377188.html" target="_blank" rel="noopener">我所理解的前端</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5afe3735518825426539afce" target="_blank" rel="noopener">如何阅读大型前端开源项目的源码</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5ae97bd05188256719521ae0" target="_blank" rel="noopener">如何在疲劳的JS世界中持续学习</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/HaZdhoDlatDIoQbhrf1N0g" target="_blank" rel="noopener">浅谈如何学习JavaScript？</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bd9d88ff265da397242c145" target="_blank" rel="noopener">支援一波 《面试数十人有感》</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/FEg9eZqDcHFo-tUmLr2xxg" target="_blank" rel="noopener">克军：如何成为一位优秀的前端工程师？</a></p>
+</li>
+</ul>
+<h2 id="Vue-组件库开发杂谈"><a href="#Vue-组件库开发杂谈" class="headerlink" title="Vue 组件库开发杂谈"></a>Vue 组件库开发杂谈</h2><ul>
+<li><p><a href="https://juejin.im/post/598965bd5188256da941872c" target="_blank" rel="noopener">Vue 组件库实践和设计</a></p>
+</li>
+<li><p><a href="http://jdc.jd.com/archives/212167" target="_blank" rel="noopener">漫谈Vue组件库开发</a></p>
+</li>
+<li><p><a href="http://jdc.jd.com/archives/212600" target="_blank" rel="noopener">再谈Vue组件库开发</a></p>
+</li>
+<li><p><a href="http://blog.johnsenzhou.com/2018/%E5%85%AC%E5%8F%B8vue%E7%BB%84%E4%BB%B6%E5%BA%93%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97" target="_blank" rel="noopener">公司vue组件库开发心得</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5b7f81ece51d4538c210a0fc" target="_blank" rel="noopener">我写了一个面向源码阅读者的 UI 框架（基于 Vue）</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/总结归纳/" rel="tag"><i class="fa fa-tag"></i> 总结归纳</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/27/收集的项目资源/" rel="next" title="H5页面生成项目集合">
+                <i class="fa fa-chevron-left"></i> H5页面生成项目集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/27/面试资源/" rel="prev" title="面试资源">
+                面试资源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user2.jpg" alt="planet">
+            
+              <p class="site-author-name" itemprop="name">planet</p>
+              <p class="site-description motion-element" itemprop="description">是金子总会发光，更何况我是钻石。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/song872229436" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术文章"><span class="nav-number">1.</span> <span class="nav-text">技术文章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更早之前"><span class="nav-number">1.0.1.</span> <span class="nav-text">更早之前</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#201808"><span class="nav-number">1.0.2.</span> <span class="nav-text">201808</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#201809"><span class="nav-number">1.0.3.</span> <span class="nav-text">201809</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#201810"><span class="nav-number">1.0.4.</span> <span class="nav-text">201810</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#201811"><span class="nav-number">1.0.5.</span> <span class="nav-text">201811</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#201812"><span class="nav-number">1.0.6.</span> <span class="nav-text">201812</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#杂谈"><span class="nav-number">2.</span> <span class="nav-text">杂谈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-组件库开发杂谈"><span class="nav-number">3.</span> <span class="nav-text">Vue 组件库开发杂谈</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">planet</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UYq8XoNFvUjuN5CRg2EFyjv7-gzGzoHsz", "RSHfgqooxObJOGOwNPuchIE6");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

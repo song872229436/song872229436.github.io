@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-nextNew.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-nextNew.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="星之所在">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="星之所在" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="此文章是我在朋友推荐给我看的文章，然后我自己想总结一下关于eventloop事件和aysnc和await的事件解决顺序（不讲解其中原理。讲顺序）。如果我讲解的有问题。 麻烦发我邮箱，嘻嘻嘻。 很高兴大家帮我指出错误。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于eventloop事件循环机制和aysnc和await的解决异步方法的详解">
+<meta property="og:url" content="http://yoursite.com/2018/12/04/关于eventloop事件监听机制和aysnc和await的解决异步方法的详解/index.html">
+<meta property="og:site_name" content="星之所在">
+<meta property="og:description" content="此文章是我在朋友推荐给我看的文章，然后我自己想总结一下关于eventloop事件和aysnc和await的事件解决顺序（不讲解其中原理。讲顺序）。如果我讲解的有问题。 麻烦发我邮箱，嘻嘻嘻。 很高兴大家帮我指出错误。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-27T07:14:42.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于eventloop事件循环机制和aysnc和await的解决异步方法的详解">
+<meta name="twitter:description" content="此文章是我在朋友推荐给我看的文章，然后我自己想总结一下关于eventloop事件和aysnc和await的事件解决顺序（不讲解其中原理。讲顺序）。如果我讲解的有问题。 麻烦发我邮箱，嘻嘻嘻。 很高兴大家帮我指出错误。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/04/关于eventloop事件监听机制和aysnc和await的解决异步方法的详解/">
+
+
+
+
+
+  <title>关于eventloop事件循环机制和aysnc和await的解决异步方法的详解 | 星之所在</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("UYq8XoNFvUjuN5CRg2EFyjv7-gzGzoHsz", "RSHfgqooxObJOGOwNPuchIE6");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+
+  
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/song872229436" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">星之所在</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/关于eventloop事件监听机制和aysnc和await的解决异步方法的详解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="planet">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="星之所在">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于eventloop事件循环机制和aysnc和await的解决异步方法的详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T10:19:41+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/04/关于eventloop事件监听机制和aysnc和await的解决异步方法的详解/" class="leancloud_visitors" data-flag-title="关于eventloop事件循环机制和aysnc和await的解决异步方法的详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>此文章是我在朋友推荐给我看的文章，然后我自己想总结一下关于eventloop事件和aysnc和await的事件解决顺序（不讲解其中原理。讲顺序）。<br>如果我讲解的有问题。 麻烦发我邮箱，嘻嘻嘻。 很高兴大家帮我指出错误。<br><a id="more"></a></p>
+<blockquote>
+<p>此文章是参考下面两个博客文章的解释。 如果我讲解的不清楚，你们可以去该文章了解一下,我觉的他们解释的挺清楚和挺好的。<br><a href="https://www.cnblogs.com/hanzhecheng/p/9046144.html" target="_blank" rel="noopener">https://www.cnblogs.com/hanzhecheng/p/9046144.html</a> <strong>eventloop</strong><br><a href="https://juejin.im/post/5c0397186fb9a049b5068e54" target="_blank" rel="noopener">https://juejin.im/post/5c0397186fb9a049b5068e54</a>     <strong>async</strong></p>
+</blockquote>
+<h3 id="eventloop事件循环机制"><a href="#eventloop事件循环机制" class="headerlink" title="eventloop事件循环机制"></a>eventloop事件循环机制</h3><p>JavaScript的事件分两种，宏任务(macro-task)和微任务(micro-task)</p>
+<p>宏任务：包括整体代码script，setTimeout，setInterval<br>微任务：Promise.then(非new Promise)，process.nextTick(node中)</p>
+<p>事件的执行顺序，是先执行宏任务，然后执行微任务，这个是基础，任务可以有同步任务和异步任务，同步的进入主线程，异步的进入Event Table并注册函数，异步事件完成后，会将回调函数放入Event Queue中(宏任务和微任务是不同的Event Queue)，同步任务执行完成后，会从Event Queue中读取事件放入主线程执行，回调函数中可能还会包含不同的任务，因此会循环执行上述操作。</p>
+<blockquote>
+<p>JS是单线程语言也就是说，JS一次只能做一件事情。<br>cpu处理指令速度非常快，远比磁盘I/O和网络I/O速度快，所以一些cpu直接执行的任务就成了优先执行主线任务（即同步任务synchronous），然后需要io返回数据的任务就成了等待被执行的任务（即异步任务asynchronous）<br>同步任务：在主线程上排队执行的任务，前一个任务执行完毕，才能执行后一个任务；<br>异步任务：不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
+</blockquote>
+<h4 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'1'</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2'</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'3'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'4'</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'5'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">输出：</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>宏任务同步代码console.log(‘1’),不多说<br>setTimeout，加入宏任务Event Queue，没有发现微任务，第一轮事件循环走完<br>第二轮事件循环开始，先执行宏任务，从宏任务Event Queue中独取出setTimeout的回调函数<br>同步代码console.log(‘2’),发现process.nextTick，加入微任务Event Queue<br>new Promise，同步执行console.log(‘4’),发现then，加入微任务Event Queue<br>宏任务执行完毕，接下来执行微任务，先执行process.nextTick，然后执行Promise.then<br>微任务执行完毕，第二轮事件循环走完，没有发现宏任务，事件循环结束</p>
+<blockquote>
+<p>总结:<br>1.事件循环，先执行宏任务，其中同步任务立即执行，异步任务，加载到对应的的Event Queue中(setTimeout等加入宏任务的Event Queue，Promise.then加入微任务的Event Queue)，<br>2.所有同步宏任务执行完毕后，如果发现微任务的Event Queue中有未执行的任务，会先执行其中的任务，这样算是完成了一次事件循环。<br>3.接下来查看宏任务的Event Queue中是否有未执行的任务，有的话，就开始第二轮事件循环，依此类推。<br>记得上面的宏任务和微任务的分类。<br>这个就是JS的eventloop的循环时间机制</p>
+</blockquote>
+<h3 id="ES6async和await的解决异步函数方法-事件顺序"><a href="#ES6async和await的解决异步函数方法-事件顺序" class="headerlink" title="ES6async和await的解决异步函数方法-事件顺序"></a>ES6async和await的解决异步函数方法-事件顺序</h3><h4 id="1-async介绍"><a href="#1-async介绍" class="headerlink" title="1.async介绍"></a>1.async介绍</h4><blockquote>
+<p>async function 用于声明 一个 返回 AsyncFunction 对象的异步函数。异步函数是值通过事件循环异步执行的函数，<strong>它会通过一个隐式的 Promise 返回其结果</strong>。如果你的代码使用了异步函数，它的语法和结构更像是标准的同步函数<br>也就是说每一个async都会返回来一个隐式的 Promise .如果还想了解更多关于async的内容，可以去上面分享的那个博主的网站去看。 我在下面想分析关于async的事件顺序机制。下面的解释不代表博主的说法错误。本人只是想通过eventloop的解释，去解释下面的顺序</p>
+</blockquote>
+<h4 id="async-Promise-setTimeout-定时器-的结合使用情况"><a href="#async-Promise-setTimeout-定时器-的结合使用情况" class="headerlink" title="async Promise setTimeout(定时器) 的结合使用情况"></a>async Promise setTimeout(定时器) 的结合使用情况</h4><p>求下面输出结果<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)  </span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br></pre></td></tr></table></figure></p>
+<p> 正确的答案是：<br>script start<br>async1 start<br>async2<br>promise1<br>script end<br>promise2<br>async1 end<br>setTimeou</p>
+<blockquote>
+<p>非常重要的一句是：<strong>遇到 await 表达式时，会让 async 函数 暂停执行，等到 await 后面的语句（Promise）状态发生改变（resolved或者rejected）之后，再恢复 async 函数的执行（再之后 await 下面的语句），并返回解析值（Promise的值）</strong></p>
+</blockquote>
+<p>解释上面的顺序：<br>1.执行同步任务-console.log(‘script start’) /1<br>2.遇到了宏任务，且为异步的setTimeout。 把次函数加入到宏任务的Event Queue<br>3.执行async1（）里面的同步代码      console.log(‘async1 start’)/2<br>4.执行 async2()里面的同步代码        console.log(‘async2’) /3（但是async2函数是给async定义的一个函数。 他会返回来一个隐式的promise对象,而且也会<strong>跳出上面的async1函数</strong>）<br>4.执行promise的同步代码   console.log(‘promise1’)/4。 遇到了promise().resolve(). 返回来了一个promise对象，。<br>5.执行同步console.log(‘script end’)/5。<br>第一轮事件走完<br>第二轮时间开始<br>6执行async2()中的promise()。要等待reslove()。 把他压进队列（）。<br>7执行.then后面的函数 console.log(‘promise2’)/6.<br>第三轮开始<br>等待完async2的promise()之后。 执行   console.log(‘async1 end’)</p>
+<p>可能大家还没多理解。 我一开始也是。 然后我测试多了几次后列如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)  </span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br></pre></td></tr></table></figure>
+<p> 正确的答案是：<br>script start<br>async1 start<br>async2<br>promise1<br>script end<br>async1 end<br>promise2<br>setTimeou</p>
+<p>解释上面的顺序：<br>第一轮事件和上面的类似。 但是没有async2()没有给async封装。 不会返回来一个promose()对象。所以第二轮有问题<br>第一轮事件走完<br>第二轮时间开始<br>6.执行    console.log(‘async1 end’)<br>7执行.then后面的函数 console.log(‘promise2’)<br>上面的顺序就会有变化了。</p>
+<p>总结一下：<br>除此之外。我在一些评论下看到：</p>
+<blockquote>
+<p><strong>宏任务的优先级，是高于微任务的啊，settimeout 是去了下一个event loop。而且我们可以把await后面的代码。都当promise.then（微任务），这样就非常的好理解了</strong>—其实看到这， 我就更清楚上面的顺序了。。 哈哈 ，–新手理解。 当压进队列后，会从一开始再运行一下。</p>
+</blockquote>
+<p>其实上面我讲的可能有点混乱。 但是这可能是我自己一开始比较好理解的方法。然后一步一步看到别人的想法，才更容易理解。 如果讲的不够清楚。可以去上面的那些博客主里面看一看。欢迎大家给我意见。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/21/blog3/" rel="next" title="输入URL到浏览器经过了哪些过程？如何渲染以及优化？">
+                <i class="fa fa-chevron-left"></i> 输入URL到浏览器经过了哪些过程？如何渲染以及优化？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/05/Flex布局-一个前端工程师必不可缺的布局/" rel="prev" title="Flex布局-一个前端工程师必不可缺的布局">
+                Flex布局-一个前端工程师必不可缺的布局 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/user2.jpg" alt="planet">
+            
+              <p class="site-author-name" itemprop="name">planet</p>
+              <p class="site-description motion-element" itemprop="description">是金子总会发光，更何况我是钻石。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/song872229436" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#eventloop事件循环机制"><span class="nav-number">1.</span> <span class="nav-text">eventloop事件循环机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码解析"><span class="nav-number">1.1.</span> <span class="nav-text">代码解析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6async和await的解决异步函数方法-事件顺序"><span class="nav-number">2.</span> <span class="nav-text">ES6async和await的解决异步函数方法-事件顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-async介绍"><span class="nav-number">2.1.</span> <span class="nav-text">1.async介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#async-Promise-setTimeout-定时器-的结合使用情况"><span class="nav-number">2.2.</span> <span class="nav-text">async Promise setTimeout(定时器) 的结合使用情况</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">planet</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UYq8XoNFvUjuN5CRg2EFyjv7-gzGzoHsz", "RSHfgqooxObJOGOwNPuchIE6");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
